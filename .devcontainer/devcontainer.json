@@ -1,0 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+	"name": "Java",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	//"image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+ 	"build": {
+        "dockerfile": "Dockerfile"
+    },
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "21",
+			"installMaven": "true",
+			"installGradle": "false"
+		},
+		 "ghcr.io/devcontainers/features/desktop-lite:1": {
+            "password": "vscode",
+            "webPort": "6080",
+            "vncPort": "5901"
+        }
+	},
+	 "hostRequirements": {
+        "cpus": 4,
+        "memory": "16gb",
+        "storage": "32gb"
+      },
+	"extensions": [
+        "vscjava.vscode-java-pack"
+        // ... other extensions
+      ],
+	"settings": {
+    "github.copilot.inlineSuggest.enable": false,
+    "github.copilot.enable": false,
+    "chat.disableAIFeatures": true
+  }
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
