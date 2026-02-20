@@ -33,7 +33,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 	private static final String RESOURCES_WQUEEN_PNG = path+"wqueen.png";
 	private static final String RESOURCES_WPAWN_PNG = path+"wpawn.png";
 	private static final String RESOURCES_BPAWN_PNG = path+"bpawn.png";
-
+    private static final String RESOURCES_BELEPHANT_PNG = path+"belephant.png";
     
 	
 	// Logical and graphical representations of board
