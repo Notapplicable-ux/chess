@@ -6,16 +6,14 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.net.URL;
-import java.awt.Toolkit;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 //You will be implmenting a part of a function and a whole function in this document. Please follow the directions for the 
 //suggested order of completion that should make testing easier.
@@ -65,11 +63,19 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
 
         //TO BE IMPLEMENTED FIRST
      
-      //for (.....)  
-//        	populate the board with squares here. Note that the board is composed of 64 squares alternating from 
-//        	white to black.
-        
-        
+    for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[0].length; j++){
+                if ((i + j) % 2 == 0){
+                    board[i][j] = new Square(this, true, 0, 0);
+                    this.add(board[i][j]);
+                }
+                else{
+                      board[i][j] = new Square(this, false, 0, 0);
+                    this.add(board[i][j]);
+                }
+            }
+
+        }
         initializePieces();
         
 
