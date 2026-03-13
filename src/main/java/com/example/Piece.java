@@ -1,3 +1,6 @@
+//Name: Anand Raj
+//Date: 2/25/26
+//Description: This class represents a chess piece on the board. 
 package com.example;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -8,62 +11,100 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-//you will need to implement two functions in this file.
 public class Piece {
+
     private final boolean color;
     private BufferedImage img;
-    
+
     public Piece(boolean isWhite, String img_file) {
+
         this.color = isWhite;
-         
+
         try {
             if (this.img == null) {
-
-                // FIX: Proper absolute path build
-                String fullPath = System.getProperty("user.dir") + File.separator + img_file;
-                this.img = ImageIO.read(new File(fullPath));
-
-                if (this.img == null) {
-                    System.out.println("Image failed to load: " + fullPath);
-                }
+                this.img = ImageIO.read(new File(img_file));
             }
-        } catch (IOException e) {
-            System.out.println("File not found: " + e.getMessage());
+        }
+        catch (IOException e) {
+            System.out.println("File not found: " + img_file);
         }
     }
-    
-    
+
     public boolean getColor() {
         return color;
     }
-    
+
     public Image getImage() {
         return img;
     }
-    
+
     public void draw(Graphics g, Square currentSquare) {
+
         int x = currentSquare.getX();
         int y = currentSquare.getY();
-        
+
         g.drawImage(this.img, x, y, null);
     }
-    
-    
-    // TO BE IMPLEMENTED!
-    //return a list of every square that is "controlled" by this piece. A square is controlled
-    //if the piece capture into it legally.
-    public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
-     return null;
-    }
-    
 
-    //TO BE IMPLEMENTED!
-    //implement the move function here
-    //it's up to you how the piece moves, but at the very least the rules should be logical and it should never move off the board!
-    //returns an arraylist of squares which are legal to move to
-    //please note that your piece must have some sort of logic. Just being able to move to every square on the board is not
-    //going to score any points.
+    // returns squares this piece could capture
+    public ArrayList<Square> getControlledSquares(Square[][] board, Square start) {
+
+        ArrayList<Square> controlled = new ArrayList<>();
+
+        int row = start.getRow();
+        int col = start.getCol();
+
+        int[][] moves = {
+                {3,2},{3,-2},{-3,2},{-3,-2},
+                {2,3},{2,-3},{-2,3},{-2,-3}
+        };
+
+        for(int[] m : moves){
+
+            int newRow = row + m[0];
+            int newCol = col + m[1];
+
+            if(newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8){
+                controlled.add(board[newRow][newCol]);
+            }
+        }
+
+        return controlled;
+    }
+
+    // returns legal movement squares
     public ArrayList<Square> getLegalMoves(Board b, Square start){
-    	return null;
+
+        ArrayList<Square> legalMoves = new ArrayList<>();
+
+        Square[][] board = b.getSquareArray();
+
+        int row = start.getRow();
+        int col = start.getCol();
+
+        int[][] moves = {
+                {3,2},{3,-2},{-3,2},{-3,-2},
+                {2,3},{2,-3},{-2,3},{-2,-3}
+        };
+
+        for(int[] m : moves){
+
+            int newRow = row + m[0];
+            int newCol = col + m[1];
+
+            if(newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8){
+
+                Square target = board[newRow][newCol];
+
+                if(!target.isOccupied()){
+                    legalMoves.add(target);
+                }
+                else if(target.getOccupyingPiece().getColor() != this.color){
+                    legalMoves.add(target);
+                }
+            }
+        }
+
+        return legalMoves;
     }
 }
