@@ -5,8 +5,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -20,15 +18,20 @@ public class Piece {
          
         try {
             if (this.img == null) {
-                this.img = ImageIO.read(new File(System.getProperty("user.dir")+img_file));
+
+                // FIX: Proper absolute path build
+                String fullPath = System.getProperty("user.dir") + File.separator + img_file;
+                this.img = ImageIO.read(new File(fullPath));
+
+                if (this.img == null) {
+                    System.out.println("Image failed to load: " + fullPath);
+                }
             }
-          } catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("File not found: " + e.getMessage());
-          }
+        }
     }
     
-    
-
     
     public boolean getColor() {
         return color;

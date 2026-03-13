@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Board extends JPanel implements MouseListener, MouseMotionListener {
 
-    private static final String path = "/src/main/java/com/example/Pictures/";
+    private static final String path = "src/main/java/com/example/Pictures/";
     private static final String RESOURCES_WBISHOP_PNG = path+"wbishop.png";
     private static final String RESOURCES_BBISHOP_PNG = path+"bbishop.png";
     private static final String RESOURCES_WKNIGHT_PNG = path+"wknight.png";
@@ -31,8 +31,8 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
     private static final String RESOURCES_WQUEEN_PNG = path+"wqueen.png";
     private static final String RESOURCES_WPAWN_PNG = path+"wpawn.png";
     private static final String RESOURCES_BPAWN_PNG = path+"bpawn.png";
-    private static final String RESOURCES_BELEPHANT_PNG = path+"belephant.png";
-    private static final String RESOURCES_WELEPHANT_PNG = path+"welephant.png";
+    private static final String RESOURCES_BELEPHANT_PNG = path+"belephantNormal.png";
+    private static final String RESOURCES_WELEPHANT_PNG = path+"welephantNormal.png";
 
     private final Square[][] board;
     private final GameWindow g;
@@ -106,13 +106,11 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
         Image backgroundImage = null; 
         URL imageUrl = null;
         if (currPiece != null) {
-            imageUrl = getClass().getResource("/src/main/java/com/example/"+currPiece.getImage());
+            imageUrl = null;
         }
 
         if (imageUrl != null) {
             backgroundImage = Toolkit.getDefaultToolkit().createImage(imageUrl);
-        } else {
-            System.err.println("Image resource not found. Check path: /src/main/java/com/example/Pictures/");
         }
 
         for (int x = 0; x < 8; x++) {
@@ -121,7 +119,7 @@ public class Board extends JPanel implements MouseListener, MouseMotionListener 
                 if(sq == fromMoveSquare)
                     sq.setBorder(BorderFactory.createLineBorder(Color.blue));
                 sq.paintComponent(g);
-                System.out.println("Painting square at " + x + ", " + y);   
+              //  System.out.println("Painting square at " + x + ", " + y);   
             }
         }
 
